@@ -1,0 +1,45 @@
+---
+- name: Install apache
+  apt: pkg=apache2 state=latest
+
+- name: Activate modules
+  command: a2enmod {{ item }} creates=/etc/apache2/mods-enabled/{{ item }}.load
+  with_items: [rewrite proxy proxy_http]
+  
+- name: Install PHP
+  apt: pkg={{ item }} state=latest
+  with_items:
+    - php5
+    - php5-cli
+    - php5-mysql
+    - php5-curl
+    - php5-gd
+    - php5-sqlite
+    - php5-xmlrpc
+    - php5-imagick
+    - php5-mysql
+    - php5-mcrypt
+    - php5-xdebug
+
+- name: Install mod_php
+  apt: pkg=libapache2-mod-php5 state=latest
+
+- name: Install phpmyadmin
+  apt: pkg=phpmyadmin state=latest
+
+- name: Enable phpmyadmin
+  file: src=/etc/phpmyadmin/apache.conf dest=/etc/apache2/conf-enabled/phpmyadmin.conf owner=root group=root state=link
+
+- name: Configure PHP (cli)
+  copy: src=php_overrides.ini dest=/etc/php5/cli/conf.d/99-php_overrides.ini mode=644
+
+- name: Configure PHP (apache2)
+  copy: src=php_overrides.ini dest=/etc/php5/apache2/conf.d/99-php_overrides.ini mode=644
+
+# - ini_file: dest=/etc/conf section=drinks option=fav value=lemonade mode=0600 backup=yes
+
+- name: Put vagrant user in www-data group
+  user: name=vagrant groups=www-data append=yes
+
+# - name: Ensure apache is running
+#   service: name=apache2 state=started

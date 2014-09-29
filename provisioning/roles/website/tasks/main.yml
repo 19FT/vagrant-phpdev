@@ -1,0 +1,24 @@
+---
+# Set up apache vhosts
+- name: copy virtual host setup over
+  template: src=vhost.conf dest=/etc/apache2/sites-available/
+
+- name: activate virtual host
+  command: a2ensite vhost
+  notify: Restart apache
+
+# Set up database and seed with docs/{{ mysql_dbname }}.sql (via a handler)
+- name: Setup MySQL user
+  mysql_user: name={{ mysql_username }} password={{ mysql_password }} host={{ item }} priv={{ mysql_dbname }}.*:ALL state=present
+  with_items:
+    - "{{ ansible_hostname }}"
+    - 127.0.0.1
+    - ::1
+    - localhost
+
+- name: Setup empty database
+  mysql_db: name={{ mysql_dbname }} encoding=utf8 collation=utf8_unicode_ci state=present login_user=root login_password={{ mysql_root_password }}
+  notify: Import database
+
+# - name: Import database backup
+#   mysql_db: name={{ mysql_dbname }} state=import login_host=localhost target=/vagrant/docs/{{ mysql_dbname }}.sql

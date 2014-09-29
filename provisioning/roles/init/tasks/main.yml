@@ -1,0 +1,18 @@
+---
+#  NOTE: PPA repositories are added in init.sh
+# - name: Add ppa Repository
+#   apt_repository: repo='ppa:ondrej/php5'
+
+- name: Update apt cache
+  apt: update_cache=yes cache_valid_time=3600
+
+- name: Install system packages
+  apt: pkg={{ item }} state=latest
+  with_items:
+    - git
+    - curl
+    - vim
+
+- name: Make sure python-software-properties is installed
+  apt: pkg=python-software-properties state=latest
+
