@@ -30,5 +30,8 @@
   mysql_db: name={{ mysql_dbname }} encoding=utf8 collation=utf8_unicode_ci state=present login_user=root login_password={{ mysql_root_password }}
   notify: Import database
 
+- name: Setup MySQL creds for {{ mysql_username}}
+  template: src=local.my.cnf dest=/home/vagrant/.my.cnf owner=vagrant mode=0600
+
 # - name: Import database backup
 #   mysql_db: name={{ mysql_dbname }} state=import login_host=localhost target=/vagrant/docs/{{ mysql_dbname }}.sql
