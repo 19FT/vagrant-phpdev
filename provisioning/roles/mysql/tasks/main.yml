@@ -17,7 +17,6 @@
 - name: Setup MySQL root password
   mysql_user: name=root password={{ mysql_root_password }} host={{ item }} state=present
   with_items:
-    - "{{ ansible_hostname }}"
     - 127.0.0.1
     - ::1
     - localhost
@@ -28,7 +27,6 @@
 - name: Delete blank MySQL users
   mysql_user: name="" host={{ item }} state=absent
   with_items:
-    - "{{ ansible_hostname }}"
     - 127.0.0.1
     - ::1
     - localhost
