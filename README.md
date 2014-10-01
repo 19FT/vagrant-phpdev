@@ -8,7 +8,9 @@ Mailcatcher and PHPMyAdmin.
 
 1. Copy `Vagrantfile` and `provisioning` folder into your project.
 2. Open `provisioning/variables.yml` and set appropriately.
-3. Open `Vagrantfile` and change the IP address if you want to.
+3. Open `Vagrantfile` and change:
+    - the IP address on `config.vm.network` if you need to.
+    - the hostname (`config.vm.network`)
 4. Change any other setting that you want to. Especially check out:
     - `provisioning\apachephp\files\php_overrides.ini`
     - `provisioning\mysql\files\mysql_overrides.cnf`
