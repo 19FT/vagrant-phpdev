@@ -5,7 +5,7 @@
 
 - name: activate virtual host
   command: a2ensite vhost
-  notify: Restart apache
+  notify: Restart webserver
 
 # Set up database and seed with docs/{{ mysql_dbname }}.sql (via a handler)
 - name: Setup MySQL user
@@ -16,7 +16,17 @@
     - ::1
     - localhost
 
-- name: Setup empty database
+- name: Give permissions to {{ mysql_username }} for phpmyadmin configuration tables
+  mysql_user: >
+    name={{ mysql_username }} password={{ mysql_password }} host={{ item }}
+    append_privs=yes priv=phpmyadmin.*:ALL state=present
+  with_items:
+    - "{{ ansible_hostname }}"
+    - 127.0.0.1
+    - ::1
+    - localhost
+
+- name: create {{ mysql_dbname }} database
   mysql_db: name={{ mysql_dbname }} encoding=utf8 collation=utf8_unicode_ci state=present login_user=root login_password={{ mysql_root_password }}
   notify: Import database
 

@@ -24,19 +24,24 @@
 - name: Install mod_php
   apt: pkg=libapache2-mod-php5 state=latest
 
-- name: Install phpmyadmin
+- name: Install PHPMyAdmin
   apt: pkg=phpmyadmin state=latest
 
-- name: Enable phpmyadmin
+- name: Enable PHPMyAdmin
   file: src=/etc/phpmyadmin/apache.conf dest=/etc/apache2/conf-enabled/phpmyadmin.conf owner=root group=root state=link
+  notify: Import PHPMyAdmin configuration tables
+
+- name: Create phpmyadmin database
+  mysql_db: name=phpmyadmin state=present login_user=root login_password={{ mysql_root_password }}
+
+- name: Update PHPMyAdmin configuration
+  template: src=pma_fix.inc.php dest=/etc/phpmyadmin/conf.d/pma_fix.inc.php mode=644
 
 - name: Configure PHP (cli)
   copy: src=php_overrides.ini dest=/etc/php5/cli/conf.d/99-php_overrides.ini mode=644
 
 - name: Configure PHP (apache2)
   copy: src=php_overrides.ini dest=/etc/php5/apache2/conf.d/99-php_overrides.ini mode=644
-
-# - ini_file: dest=/etc/conf section=drinks option=fav value=lemonade mode=0600 backup=yes
 
 - name: Put vagrant user in www-data group
   user: name=vagrant groups=www-data append=yes
