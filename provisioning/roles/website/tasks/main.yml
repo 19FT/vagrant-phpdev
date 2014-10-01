@@ -11,7 +11,7 @@
 - name: Setup MySQL user
   mysql_user: name={{ mysql_username }} password={{ mysql_password }} host={{ item }} priv={{ mysql_dbname }}.*:ALL state=present
   with_items:
-    - "{{ ansible_hostname }}"
+    - "%"
     - 127.0.0.1
     - ::1
     - localhost
@@ -21,7 +21,6 @@
     name={{ mysql_username }} password={{ mysql_password }} host={{ item }}
     append_privs=yes priv=phpmyadmin.*:ALL state=present
   with_items:
-    - "{{ ansible_hostname }}"
     - 127.0.0.1
     - ::1
     - localhost
