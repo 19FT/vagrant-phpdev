@@ -3,6 +3,17 @@
  * Fix for PHPMyadmin config that's installed by Ubuntu
  */
 
+
+$cfg['LoginCookieValidity'] = 28800; // 4 hours
+/**
+ * Number of rows displayed when browsing a result set. If the result
+ * set contains more rows, "Previous" and "Next".
+ * default = 30
+ */
+$cfg['MaxRows'] = '300';
+
+
+/* server configuration */
 $i = 1;
 
 /* Optional: User for advanced features */
@@ -23,4 +34,3 @@ $cfg['Servers'][$i]['designer_coords'] = 'pma__designer_coords';
 $cfg['Servers'][$i]['tracking'] = 'pma__tracking';
 $cfg['Servers'][$i]['userconfig'] = 'pma__userconfig';
 $cfg['Servers'][$i]['recent'] = 'pma__recent';
-
