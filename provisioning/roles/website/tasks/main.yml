@@ -3,6 +3,10 @@
 - name: copy virtual host setup over
   template: src=vhost.conf dest=/etc/apache2/sites-available/
 
+# Set username and group for apache to vagrant
+- name: copy apache envars
+  template: src=envvars dest=/etc/apache2/
+
 - name: activate virtual host
   command: a2ensite vhost
   notify: Restart webserver
