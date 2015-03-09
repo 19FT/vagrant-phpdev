@@ -95,11 +95,11 @@
 #   apt: pkg=graphviz state=latest
 
 # XHGui
-- name: Install mongo db
-  apt: pkg=mongodb state=latest
-
-- name: Install PHP's mongo extension
-  apt: pkg=php5-mongo state=latest
+- name: Install MongoDB
+  apt: pkg={{ item }} state=latest
+  with_items:
+    - mongodb
+    - php5-mongo
 
 - name: Install XHGui
   shell: export COMPOSER_HOME=/usr/local/composer && composer global require --ignore-platform-reqs 'perftools/xhgui=dev-master' creates=/usr/local/composer/vendor/perftools/xhgui/composer.json
