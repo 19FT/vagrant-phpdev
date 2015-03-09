@@ -6,6 +6,6 @@
 4. `vagrant up`
 5. Open VirtualBox GUI and find out id of this VM
 6. `cd ~/tmp`
-7. `vagrant package --base {VM-ID} --output 19ft\_phpdev\_1.0x.y.box
-8. Upload to CDN and release new version on vagrantcloud.com
+7. `vagrant package --base {VM-ID} --output 19ft_phpdev_x.y.z.box`
+8. Upload to CDN and release new version on atlas.hashicorp.com
 
