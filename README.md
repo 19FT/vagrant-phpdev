@@ -7,7 +7,8 @@ Mailcatcher and PHPMyAdmin.
 # Installation into your project
 
 1. Copy `Vagrantfile` and `provisioning` folder into your project.
-2. Open `provisioning/variables.yml` and set appropriately.
+2. Copy `provisioning/variables.yml.dist` to `provisioning/variables.yml`
+   and set appropriately.
 3. Open `Vagrantfile` and change:
     - the IP address on `config.vm.network` if you need to.
     - the hostname (`config.vm.network`)
@@ -28,24 +29,16 @@ Mailcatcher and PHPMyAdmin.
    
     - Use the IP address that's in your `Vagrantfile`.
     - use the server-name that you sent up in `variables.yml`.
-      
-    If you are on Linux, run this:
 
-        (echo ; echo "192.168.99.2 example.dev mailcatcher.example.dev phpmyadmin.example.dev") | sudo tee -a /etc/hosts
+    i.e. your add this to `/etc/hosts` or `System32\Drivers\Etc\Hosts`:
 
-    If you are on OSX, run this:
-
-        echo "192.168.99.2 example.dev mailcatcher.example.dev phpmyadmin.example.dev" | sudo tee -a /etc/hosts
-
-    If you are on Windows, run this on the cmd line
-
-        echo 192.168.99.2 example.dev mailcatcher.example.dev phpmyadmin.example.dev >> %SYSTEMDRIVE%\Windows\System32\Drivers\Etc\Hosts
-
+        192.168.99.2 example.dev mailcatcher.example.dev phpmyadmin.example.dev profiler.example.dev
 
 ## URLs
 
 These are the URLs available:
 
-    * Website: [http://example.dev](http://example.dev)
-    * Mailcatcher: [http://mailcatcher.example.dev](http://mailcatcher.example.dev)
-    * PHPMyAdmin: [http://phpmyadmin.example.dev](http://phpmyadmin.example.dev)
+        Website:        http://example.dev
+        Mailcatcher:    http://mailcatcher.example.dev
+        PHPMyAdmin:     http://phpmyadmin.example.dev
+        XHGui profiler: http://profiler.example.dev
