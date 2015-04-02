@@ -52,7 +52,7 @@
   when: install_profiler
 
 - name: Create global composer directory
-  file: path=/usr/local/composer state=directory owner=www-data group=www-data mode=0775
+  file: path=/usr/local/composer state=directory owner=vagrant group=vagrant mode=0775
   when: install_profiler
 
 - name: Add g+s flag to composer directory
@@ -89,11 +89,11 @@
   when: install_profiler
 
 - name: Set XHGui permisssions
-  file: path=/usr/local/composer/vendor/perftools/xhgui/cache group=www-data mode=775
+  file: path=/usr/local/composer/vendor/perftools/xhgui/cache group=vagrant mode=775
   when: install_profiler
 
 - name: Configure XHGui
-  template: src=xhgui_config.php dest=/usr/local/composer/vendor/perftools/xhgui/config/config.php owner=vagrant group=www-data mode=644
+  template: src=xhgui_config.php dest=/usr/local/composer/vendor/perftools/xhgui/config/config.php owner=vagrant group=vagrant mode=644
   when: install_profiler
 
 - name: Index mongo for XHGui
