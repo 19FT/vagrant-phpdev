@@ -38,11 +38,7 @@
     - php5-mongo
 
 # Mailcatcher
-- name: Add dependencies (gem)
-  gem: name=i18n version=0.6.11 state=present user_install=no
-  sudo: yes
-
-- name: Add mailcatcher
+- name: Add Mailcatcher
   gem: name={{ item }} state=present user_install=no
   with_items:
     - mailcatcher
