@@ -36,3 +36,26 @@
     - phpmyadmin
     - mongodb
     - php5-mongo
+
+# Mailcatcher
+- name: Add dependencies (gem)
+  gem: name=i18n version=0.6.11 state=present user_install=no
+  sudo: yes
+
+- name: Add mailcatcher
+  gem: name={{ item }} state=present user_install=no
+  with_items:
+    - mailcatcher
+  sudo: yes
+
+- name: Remove mail server packages
+  apt: name={{ item }} state=absent purge=yes
+  with_items:
+    - mailutils
+    - postfix
+    - sendmail
+    - exim4
+    - exim4-base
+    - exim4-config
+    - exim4-daemon-light
+  sudo: yes
