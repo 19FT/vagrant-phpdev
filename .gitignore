@@ -1,2 +1,2 @@
 .vagrant
-provisioning/variables.yml
+vm-provisioning/variables.yml

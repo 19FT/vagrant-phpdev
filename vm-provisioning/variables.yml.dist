@@ -6,7 +6,7 @@ mysql_username:      myusername
 mysql_password:      mypassword
 
 # set seed_database to false if you don't want to seed the database
-seed_database: true
+seed_database: false
 seed_database_file: /vagrant/docs/mydatabasebackup.sql
 
 # Apache vhost
