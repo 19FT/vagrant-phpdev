@@ -15,4 +15,5 @@ apache_doc_root:  /public
 apache_additional: |
         SetEnv APPLICATION_ENV vagrant
 
-
+# Install XHGui profiler?
+install_profiler: false

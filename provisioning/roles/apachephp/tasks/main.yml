@@ -38,55 +38,43 @@
 - name: Configure PHP (apache2)
   copy: src=php_overrides.ini dest=/etc/php5/apache2/conf.d/99-php_overrides.ini mode=644
 
-- name: Put vagrant user in www-data group
-  user: name=vagrant groups=www-data append=yes
-
 # Composer
 - name: Install composer
   shell: curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin creates=/usr/local/bin/composer
-  tags: composer
+  when: install_profiler
 
 - name: Rename composer.phar to composer
   shell: mv /usr/local/bin/composer.phar /usr/local/bin/composer creates=/usr/local/bin/composer
-  tags: composer
+  when: install_profiler
 
 - name: Make composer executable
   file: path=/usr/local/bin/composer mode=a+x state=file
-  tags: composer
+  when: install_profiler
 
 - name: Create global composer directory
   file: path=/usr/local/composer state=directory owner=www-data group=www-data mode=0775
+  when: install_profiler
 
 - name: Add g+s flag to composer directory
   file: path=usr/local/composer state=directory mode=g+s
+  when: install_profiler
 
 # Uprofiler
 - name: Install uprofiler
   shell: export COMPOSER_HOME=/usr/local/composer && composer global require 'friendsofphp/uprofiler=dev-master' creates=/usr/local/composer/vendor/friendsofphp/uprofiler/composer.json
+  when: install_profiler
 
 - name: Compile uprofiler
   shell: cd /usr/local/composer/vendor/friendsofphp/uprofiler/extension && phpize && ./configure && make && make install creates=/usr/lib/php5/20121212/uprofiler.so
+  when: install_profiler
 
 - name: Configure PHP (cli)
   copy: src=uprofiler.ini dest=/etc/php5/cli/conf.d/21-uprofiler.ini mode=644
+  when: install_profiler
 
 - name: Configure PHP (apache2)
   copy: src=uprofiler.ini dest=/etc/php5/apache2/conf.d/21-uprofiler.ini mode=644
-
-# - name: Create uprofiler log directory
-#   file: path=/var/log/uprofiler state=directory owner=root group=www-data mode=0775
-  
-# - name: Add g+s flag to uprofiler log directory
-#   file: path=/var/log/uprofiler state=directory mode=g+s
-
-# - name: Install prepend.php
-#   template: src=prepend.php dest=/home/vagrant/prepend.php owner=vagrant group=www-data mode=644
-
-# - name: Install append.php
-#   copy: src=append.php dest=/home/vagrant/append.php owner=vagrant group=www-data mode=644
-
-# - name: Install graphviz
-#   apt: pkg=graphviz state=latest
+  when: install_profiler
 
 # XHGui
 - name: Install MongoDB
@@ -94,19 +82,21 @@
   with_items:
     - mongodb
     - php5-mongo
+  when: install_profiler
 
 - name: Install XHGui
   shell: export COMPOSER_HOME=/usr/local/composer && composer global require --ignore-platform-reqs 'perftools/xhgui=dev-master' creates=/usr/local/composer/vendor/perftools/xhgui/composer.json
+  when: install_profiler
 
 - name: Set XHGui permisssions
   file: path=/usr/local/composer/vendor/perftools/xhgui/cache group=www-data mode=775
+  when: install_profiler
 
 - name: Configure XHGui
   template: src=xhgui_config.php dest=/usr/local/composer/vendor/perftools/xhgui/config/config.php owner=vagrant group=www-data mode=644
+  when: install_profiler
 
 - name: Index mongo for XHGui
   script: xhgui_indexes.sh --some-arguments 1234 creates=/root/indexed_xhgui.txt
+  when: install_profiler
 
-
-# - name: Ensure apache is running
-#   service: name=apache2 state=started
