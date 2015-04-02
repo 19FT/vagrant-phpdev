@@ -12,7 +12,27 @@
     - git
     - curl
     - vim
-
-- name: Make sure python-software-properties is installed
-  apt: pkg=python-software-properties state=latest
-
+    - python-software-properties
+    - build-essential
+    - ruby-all-dev
+    - libsqlite3-dev
+    - mysql-client
+    - mysql-server
+    - python-mysqldb
+    - apache2
+    - php5
+    - php5-cli
+    - php5-mysql
+    - php5-curl
+    - php5-gd
+    - php5-sqlite
+    - php5-xmlrpc
+    - php5-imagick
+    - php5-mysql
+    - php5-mcrypt
+    - php5-xdebug
+    - php5-dev
+    - libapache2-mod-php5
+    - phpmyadmin
+    - mongodb
+    - php5-mongo
