@@ -32,15 +32,6 @@
 - name: update service
   service: name=mailcatcher state=started
 
-- name: Ensure mail servers are not running
-  service: name={{ item }} state=stopped enabled=no
-  with_items:
-    - postfix
-    - exim4
-  register: command_result
-  failed_when: command_result|failed and 'service not found' not in command_result.msg
-  sudo: yes
-
 - name: Remove mail server packages
   apt: name={{ item }} state=absent purge=yes
   with_items:
