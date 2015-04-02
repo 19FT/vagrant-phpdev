@@ -22,7 +22,7 @@ apt-get update -qq
 DEBIAN_FRONTEND=noninteractive
 apt-get upgrade -y
 
-cd /vagrant/provisioning
+cd /vagrant/vm-provisioning
 ansible-playbook setup.yml --connection=local
 
 echo "Done"
