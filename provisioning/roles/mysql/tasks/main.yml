@@ -1,12 +1,10 @@
 ---
-- name: Install MySQL client
-  apt: pkg=mysql-client state=latest
-
-- name: Install MySQL server
-  apt: pkg=mysql-server state=latest
-
-- name: Install Python MySQLdb package
-  apt: pkg=python-mysqldb state=latest
+- name: Install MySQL packages
+  apt: pkg={{ item }} state=latest
+  with_items:
+    - mysql-client
+    - mysql-server
+    - python-mysqldb
 
 - name: Update MySQL configuration
   copy: src=mysql_overrides.cnf dest=/etc/mysql/conf.d/mysql_overrides.cnf mode=644
