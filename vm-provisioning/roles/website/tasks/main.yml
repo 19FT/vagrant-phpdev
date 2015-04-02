@@ -7,9 +7,14 @@
 - name: Copy Apache envars
   template: src=envvars dest=/etc/apache2/
 
+# Add our vhosts and turn off the default one
 - name: Activate virtual host
   command: a2ensite vhost
   notify: Restart webserver
+
+- name: disable default virtual host
+  command: a2dissite 000-default
+  notify: Restart apache
 
 # Set up database and seed with docs/{{ mysql_dbname }}.sql (via a handler)
 - name: Setup MySQL user
