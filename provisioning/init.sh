@@ -17,8 +17,12 @@ then
     echo "Ansible installed"
 fi
 
-cd /vagrant/provisioning
+echo "Run apt-get upgrade"
+apt-get update -qq
+DEBIAN_FRONTEND=noninteractive
+apt-get upgrade -y
 
+cd /vagrant/provisioning
 ansible-playbook setup.yml --connection=local
 
 echo "Done"
