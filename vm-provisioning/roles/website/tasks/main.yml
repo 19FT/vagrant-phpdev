@@ -1,13 +1,13 @@
 ---
 # Set up apache vhosts
-- name: copy virtual host setup over
+- name: Copy virtual host setup over
   template: src=vhost.conf dest=/etc/apache2/sites-available/
 
-# Set username and group for apache to vagrant
-- name: copy apache envars
+# Set username and group for apache to be the vagrant user's
+- name: Copy Apache envars
   template: src=envvars dest=/etc/apache2/
 
-- name: activate virtual host
+- name: Activate virtual host
   command: a2ensite vhost
   notify: Restart webserver
 
@@ -29,12 +29,9 @@
     - ::1
     - localhost
 
-- name: create {{ mysql_dbname }} database
+- name: Create {{ mysql_dbname }} database
   mysql_db: name={{ mysql_dbname }} encoding=utf8 collation=utf8_unicode_ci state=present login_user=root login_password={{ mysql_root_password }}
   notify: Import database
 
 - name: Setup MySQL creds for {{ mysql_username}}
   template: src=local.my.cnf dest=/home/vagrant/.my.cnf owner=vagrant mode=0600
-
-# - name: Import database backup
-#   mysql_db: name={{ mysql_dbname }} state=import login_host=localhost target=/vagrant/docs/{{ mysql_dbname }}.sql
