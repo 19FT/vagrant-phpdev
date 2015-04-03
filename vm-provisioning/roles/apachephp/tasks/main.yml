@@ -13,7 +13,6 @@
     - php5-imagick
     - php5-mysql
     - php5-mcrypt
-    - php5-xdebug
     - php5-dev
     - libapache2-mod-php5
     - phpmyadmin
@@ -37,6 +36,21 @@
 
 - name: Configure PHP (apache2)
   copy: src=php_overrides.ini dest=/etc/php5/apache2/conf.d/99-php_overrides.ini mode=644
+
+# Xdebug
+- name: Ensure stock Xdebug package is uninstalled
+  apt: name={{ item }} state=absent purge=yes
+  with_items:
+    - php5-xdebug
+
+- name: Install latest Xdebug
+  shell: pecl install xdebug creates=/usr/lib/php5/20121212/xdebug.so
+
+- name: Configure PHP for Xdebug (cli)
+  copy: src=xdebug.ini dest=/etc/php5/cli/conf.d/21-xdebug.ini mode=644
+
+- name: Configure PHP for Xdebug (apache2)
+  copy: src=xdebug.ini dest=/etc/php5/apache2/conf.d/21-xdebug.ini mode=644
 
 # Composer
 - name: Install composer
