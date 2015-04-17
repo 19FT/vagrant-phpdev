@@ -15,6 +15,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Set hostname
   config.vm.hostname = "phpdev"
 
+  # Prevent Vagrant 1.7 from asking for the vagrant user's password
+  config.ssh.insert_key = false
+
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.
   # Example for VirtualBox:
