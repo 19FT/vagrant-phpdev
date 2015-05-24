@@ -10,8 +10,8 @@ seed_database: false
 seed_database_file: /vagrant/docs/mydatabasebackup.sql
 
 # Apache vhost
-server_name:        example.dev
-server_ngrok_alias: example
+server_name:        phpdev.localhost
+server_ngrok_alias: phpdev
 apache_doc_root:    /public
 apache_additional: |
         SetEnv APPLICATION_ENV vagrant
