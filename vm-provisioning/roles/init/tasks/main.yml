@@ -38,7 +38,7 @@
 
 # Xdebug
 - name: Install latest Xdebug
-  shell: pecl install xdebug creates=/usr/lib/php5/20121212/xdebug.so
+  shell: pecl install xdebug creates=/usr/lib/php5/20131226/xdebug.so
 
 # Mailcatcher
 - name: Add Mailcatcher
