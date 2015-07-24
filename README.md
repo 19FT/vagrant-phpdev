@@ -1,21 +1,21 @@
 # Vagrant PHP development box
 
 Starting with ubuntu/trusty64, this adds MySQL, PHP 5.5 on Apache, with
-Mailcatcher and PHPMyAdmin.
+Mailcatcher, PHPMyAdmin & XHGui profiler.
 
 
 # Installation into your project
 
-1. Copy `Vagrantfile` and `provisioning` folder into your project.
-2. Copy `provisioning/variables.yml.dist` to `provisioning/variables.yml`
+1. Copy `Vagrantfile` and `vm-provisioning` folder into your project.
+2. Copy `vm-provisioning/variables.yml.dist` to `vm-provisioning/variables.yml`
    and set appropriately.
 3. Open `Vagrantfile` and change:
     - the IP address on `config.vm.network` if you need to.
     - the hostname (`config.vm.network`)
 4. Change any other setting that you want to. Especially check out:
-    - `provisioning\apachephp\files\php_overrides.ini`
-    - `provisioning\mysql\files\mysql_overrides.cnf`
-    - `provisioning\website\tempalates\vhost.conf`
+    - `vm-provisioning\apachephp\files\php_overrides.ini`
+    - `vm-provisioning\mysql\files\mysql_overrides.cnf`
+    - `vm-provisioning\website\tempalates\vhost.conf`
 5. Add .vagrant to your project's `.gitignore` file.
 
 
